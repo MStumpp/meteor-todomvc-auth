@@ -1,0 +1,19 @@
+#todoapp {
+	margin: 230px 0 40px 0;
+}
+
+.visibility {
+	position: relative;
+	line-height: 20px;
+	text-decoration: none;
+	background: rgba(0, 0, 0, 0.1);
+	font-size: 11px;
+	padding: 0 10px;
+	border-radius: 3px;
+	box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+.login-bar {
+	float: right;
+    margin: 0px auto; 
+}
