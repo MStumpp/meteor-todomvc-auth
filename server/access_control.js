@@ -7,6 +7,8 @@ Meteor.startup(function() {
     });
   };
 
+  enableMogger();
+
   Todos.allow({
     insert: function () { return true; },
     update: canModify,

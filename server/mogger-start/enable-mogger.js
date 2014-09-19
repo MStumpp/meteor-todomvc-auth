@@ -1,5 +1,10 @@
-var GLOBAL_PADDING_SIZE = 18;
-
+var GLOBAL_PADDING_SIZE = 20;
+/**
+ * MOGGER on Server
+ * ---------------------------------------
+ * FIXME: send this code to Mogger itself
+ * TODO: colors on the server
+ */
 var multiplyChar = function multiplyChar(char, times) {
     var finalStr = [];
     for (var i = 0; i < times; i++) {
@@ -65,23 +70,14 @@ var interceptParameters = function(info) {
 };
 
 enableMogger = function() {
-    /**
-     * instantiate mogger
-     * add the surrogateTargets array.
-     */
 
-    var GLOBAL_CSS = [
-                        'font-size: 14px;' +
-                        ''
-                     ].join();
+    var Mogger = Meteor.npmRequire('mogger');
 
     mogger = new Mogger({
         surrogateTargets: [
             { title: 'Todos', target: Todos },
-            { title: 'Session', target: Session },
-            { title: 'Template.main', target: Template.main },
-            { title: 'Template.todo', target: Template.todo },
-            { title: 'Template.footer', target: Template.footer },
+            { title: 'M.method_handlers', target: Meteor.server.method_handlers },
+            { title: 'M.Collect.proto', target: Meteor.Collection.prototype },
         ],
         globalBeforeConfig: {
             size: GLOBAL_PADDING_SIZE
@@ -92,36 +88,12 @@ enableMogger = function() {
                 callback: interceptParameters
             }
         ],
-        showArguments: true,
+        showPause: false,
         pointcut: /^[^_]./,
     });
 
-    /**
-     * tracing all methods from simple_obj_1
-     */
-    mogger.traceObj({
-        localBeforeConfig: { css: GLOBAL_CSS + 'color: #277' },
-        before: { message: 'Todos:' }, targetTitle: 'Todos'
-    });
-
-    mogger.traceObj({
-        localBeforeConfig: { css: GLOBAL_CSS + 'color: #727' },
-        before: { message: 'Session:' }, targetTitle: 'Session'
-    });
-
-    mogger.traceObj({
-        localBeforeConfig: { css: GLOBAL_CSS + 'color: #274' },
-        before: { message: 'T.main:' }, targetTitle: 'Template.main'
-    });
-
-    mogger.traceObj({
-        localBeforeConfig: { css: GLOBAL_CSS + 'color: #2B4' },
-        before: { message: 'T.todo:' }, targetTitle: 'Template.todo'
-    });
-
-    mogger.traceObj({
-        localBeforeConfig: { css: GLOBAL_CSS + 'color: #204' },
-        before: { message: 'T.footer:' }, targetTitle: 'Template.footer'
-    });
-
+    mogger.traceObj({ before: { message: 'Todos:' }, targetTitle: 'Todos' });
+    mogger.traceObj({ before: { message: 'M.method_handlers:' },  targetTitle: 'M.method_handlers' });
+    mogger.traceObj({ before: { message: 'M.Collect.proto:' },  targetTitle: 'M.Collect.proto' });
 };
+

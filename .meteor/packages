@@ -9,3 +9,7 @@ insecure
 accounts-ui
 accounts-facebook
 bootstrap
+meteorhacks:npm
+
+
+npm-container
