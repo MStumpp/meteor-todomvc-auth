@@ -10,7 +10,7 @@ Session.set('editing_todo', null);
 Meteor.subscribe('todos');
 
 /////////////////////////////////////////////////////////////////////////
-// The following two functions are taken from the official Meteor 
+// The following two functions are taken from the official Meteor
 // "Todos" example
 // The original code can be viewed at: https://github.com/meteor/meteor
 /////////////////////////////////////////////////////////////////////////
@@ -26,13 +26,13 @@ var okcancel_events = function (selector) {
 var make_okcancel_handler = function (options) {
 	var ok = options.ok || function () {};
 	var cancel = options.cancel || function () {};
-	
+
 	return function (evt) {
 		if (evt.type === 'keydown' && evt.which === 27) {
 			// escape = cancel
 			cancel.call(this, evt);
 
-		} else if (evt.type === 'keyup' && evt.which === 13 || 
+		} else if (evt.type === 'keyup' && evt.which === 13 ||
 			evt.type === 'focusout') {
 			// blur/return/enter = ok/submit if non-empty
 			var value = String(evt.target.value || '');
@@ -72,7 +72,7 @@ Template.todoapp.events = {};
 Template.todoapp.events[okcancel_events('#new-todo')] =
 	make_okcancel_handler({
 		ok: function (title, evt) {
-			Todos.insert({title: $.trim(title), completed: false, 
+			Todos.insert({title: $.trim(title), completed: false,
 				created_at: new Date().getTime()});
 			evt.target.value = '';
 		}
@@ -102,7 +102,7 @@ Template.main.todos_not_completed = todos_not_completed_helper;
 Template.main.events = {
 	'click input#toggle-all': function(evt) {
 		var completed = true;
-		if (!Todos.find({completed: false}).count()) { 
+		if (!Todos.find({completed: false}).count()) {
 			completed = false;
 		}
 		Todos.find({}).forEach(function(todo) {
@@ -180,10 +180,10 @@ Template.footer.filter = function() {
 Template.footer.filter_selected = function(type) {
 	if (type === 'all') {
 		return Session.equals('filter', null);
-	}			
+	}
 	return Session.equals('filter', type);
 };
-				
+
 // Register click events for selecting filter type and
 // clearing completed todos
 Template.footer.events = {
@@ -203,3 +203,5 @@ Template.footer.events = {
 		Session.set('filter', 'completed');
 	}
 };
+
+enableMogger();

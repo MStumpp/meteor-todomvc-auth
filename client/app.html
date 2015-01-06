@@ -37,7 +37,11 @@
 
 <template name="main">
     <section id="main">
-        <input id="toggle-all" type="checkbox" {{#unless todos_not_completed}}checked="checked"{{/unless}}>
+        {{#unless todos_not_completed}}
+            <input id="toggle-all" type="checkbox" checked="checked">
+        {{else}}
+            <input id="toggle-all" type="checkbox">
+        {{/unless}}
         <label for="toggle-all">Mark all as complete</label>
         <ul id="todo-list">
             {{#each todos}}
@@ -50,7 +54,11 @@
 <template name="todo">
 	<li class="{{#if todo_completed}}completed{{/if}}{{#if todo_editing}}editing{{/if}}">
         <div class="view">
-            <input class="toggle" type="checkbox" {{#if todo_completed}}checked="checked"{{/if}}>
+            {{#if todo_completed}}
+            <input class="toggle" type="checkbox" checked="checked">
+            {{else}}
+            <input class="toggle" type="checkbox">
+            {{/if}}
             <label>{{title}}</label>
             <button class="destroy"></button>
             {{#if currentUser}}
@@ -67,7 +75,7 @@
 
 <template name="footer">
     <footer id="footer">
-        <span id="todo-count"><strong>{{todos_not_completed}}</strong> 
+        <span id="todo-count"><strong>{{todos_not_completed}}</strong>
         	{{#if todos_one_not_completed}}item{{else}}items{{/if}} left</span>
         <ul id="filters">
             <li>
